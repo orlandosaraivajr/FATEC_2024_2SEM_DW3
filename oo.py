@@ -94,3 +94,42 @@ class Superman( Voar, Pessoa, SuperForca):
 
 clark = Superman('Clark', 'Reporter')
 
+# Args e KWargs
+
+def soma(*args):
+    print(args)
+    print(type(args))
+    total = 0
+    for numero in args:
+        total = total + numero
+    return total
+
+soma(10, 20)
+soma(10, 25)
+soma(10, 20, 30)
+soma(10, 20, 30, 40)
+
+
+def exibir(*args):
+    print(args)
+    print(type(args))
+print(exibir(1,2,3))
+print(exibir(1,2, [3,4,5,6] ))
+
+def exibir2(**kwargs):
+    print(kwargs)
+    print(type(kwargs))
+
+exibir2()
+exibir2(nome='Orlando',sobrenome='Saraiva')
+
+def exibir3(*args, **kwargs):
+    print(args)
+    print(type(args))
+    print(kwargs)
+    print(type(kwargs))
+
+exibir3()
+exibir3(nome='Orlando', sobrenome='Saraiva')
+exibir3(10, 20, 30, 40)
+exibir3(10, 20, 30, 40,nome='Orlando',sobrenome='Saraiva')
