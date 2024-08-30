@@ -40,6 +40,7 @@ print(isinstance(quarto_objeto, SegundaClasse)) # True
 
 print(issubclass(str,object))
 
+# Demonstramos o conceito de Herança
 class Transporte:
     def __init__(self, marca, modelo, ano):
         self.marca = marca
@@ -47,17 +48,49 @@ class Transporte:
         self.ano = ano
         self.velocidade = 0 
 
-class Carro:
+class Carro(Transporte):
     def __init__(self, marca, modelo, ano):
-        self.marca = marca
-        self.modelo = modelo
-        self.ano = ano
-        self.velocidade = 0 
+        Transporte.__init__(self, marca, modelo, ano) 
  
-class Moto:
+class Moto(Transporte):
     def __init__(self, marca, modelo, ano):
-        self.marca = marca
-        self.modelo = modelo
-        self.ano = ano
-        self.velocidade = 0     
+        Transporte.__init__(self, marca, modelo, ano)    
+
 fusca = Carro('VW', 'Fusca', 1970)
+twister = Moto('Honda', 'Twister', 2020)
+
+# Demonstramos o conceito de Herança Múltipla
+
+class Pessoa:
+    def __init__(self, nome, profissao):
+        self.nome = nome
+        self.profissao = profissao
+
+    def mostrar(self):
+        print('Pessoa')
+
+class Voar:
+    def __init__(self):
+        self.voar = True
+
+    def mostrar(self):
+        print(' consegue voar')
+
+class SuperForca:
+    def __init__(self):
+        self.superfoca = True
+    
+    def mostrar(self):
+        print(' tem super força')
+        
+class Superman( Voar, Pessoa, SuperForca):
+    def __init__(self, nome, profissao):
+        Pessoa.__init__(self, nome, profissao)
+        SuperForca.__init__(self)
+        Voar.__init__(self)
+
+    def mostrar(self):
+        SuperForca.mostrar(self)
+
+clark = Superman('Clark', 'Reporter')
+
