@@ -38,4 +38,26 @@ terceiro_objeto.nome = 'Fatec'
 print(isinstance(quarto_objeto, PrimeiraClasse)) # False
 print(isinstance(quarto_objeto, SegundaClasse)) # True
 
-issubclass(str,object)
+print(issubclass(str,object))
+
+class Transporte:
+    def __init__(self, marca, modelo, ano):
+        self.marca = marca
+        self.modelo = modelo
+        self.ano = ano
+        self.velocidade = 0 
+
+class Carro:
+    def __init__(self, marca, modelo, ano):
+        self.marca = marca
+        self.modelo = modelo
+        self.ano = ano
+        self.velocidade = 0 
+ 
+class Moto:
+    def __init__(self, marca, modelo, ano):
+        self.marca = marca
+        self.modelo = modelo
+        self.ano = ano
+        self.velocidade = 0     
+fusca = Carro('VW', 'Fusca', 1970)
