@@ -1,0 +1,26 @@
+No Windows
+==========
+
+python -m virtualenv ambiente1
+cd ambiente1
+cd Scripts
+activate.bat
+
+Instalar bibliotecas com uso do pip ( pip install requests )
+
+Para desativar:
+desactivate.bat
+
+No Linux
+========
+
+virtualenv -p python3 ambiente1
+cd ambiente1
+cd bin
+source activate
+
+
+Para fazer o dump do ambiente
+pip freeze > requirements.txt
+
+
