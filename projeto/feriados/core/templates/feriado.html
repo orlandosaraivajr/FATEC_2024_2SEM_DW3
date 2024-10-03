@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Projeto Feriado</title>
+    </head>
+    <body>
+        {% if feriado %}
+            <h1>{{ nome_feriado }}</h1>
+        {% else %}
+            <h1>Não temos feriado hoje.</h1>
+            <h2>Vamos para aula.</h2>
+        {% endif %}
+    </body>
+</html>     

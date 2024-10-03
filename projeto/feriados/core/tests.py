@@ -1,6 +1,8 @@
 from django.test import TestCase
+from .models import FeriadoModel
+from datetime import datetime
 
-class NatalTest(TestCase):
+class Feriado_no_holiday_Test(TestCase):
     def setUp(self):
         self.resp = self.client.get('/')
 
@@ -8,14 +10,28 @@ class NatalTest(TestCase):
         self.assertEqual(200, self.resp.status_code)
 
     def test_texto(self):
-        self.assertContains(self.resp, 'natal')
+        self.assertContains(self.resp, 'Não temos feriado hoje.')
+        self.assertContains(self.resp, 'Vamos para aula.')
     
     def test_template_used(self):
-        self.assertTemplateUsed(self.resp, 'natal.html')
+        self.assertTemplateUsed(self.resp, 'feriado.html')
 
+class Feriado_one_holiday_Test(TestCase):
+    def setUp(self):
+        self.feriado = 'Melhor aula'
+        hoje = datetime.today()
+        FeriadoModel.objects.create(nome=self.feriado,dia=hoje.day,mes=hoje.month)
+        self.resp = self.client.get('/')
 
-from .models import FeriadoModel
-from datetime import datetime
+    def test_200_response(self):
+        self.assertEqual(200, self.resp.status_code)
+
+    def test_texto(self):
+        self.assertContains(self.resp, self.feriado)
+    
+    def test_template_used(self):
+        self.assertTemplateUsed(self.resp, 'feriado.html')
+
 
 class FeriadoModelTest(TestCase):
     def setUp(self):
