@@ -5,13 +5,11 @@ from datetime import datetime
 
 def index(request):
    hoje = datetime.today()
-   feriado = FeriadoModel.objects.filter(mes=hoje.month)
-   feriado = feriado.filter(dia=hoje.day)
+   feriado = FeriadoModel.objects.filter(mes=hoje.month, dia=hoje.day)
    # import ipdb; ipdb.set_trace()
+   contexto = {'feriado':False}
    if len(feriado) > 0:
       contexto = {'feriado':True, 'nome_feriado':feriado[0].nome}
-   else:
-      contexto = {'feriado':False}
    return render(request, 'feriado.html', contexto)
 
 def api(request):
