@@ -14,3 +14,14 @@ def index(request):
 
 def api(request):
    return HttpResponse('API')
+
+from core.services import inserir_mongo
+import datetime
+def mongo(request):
+   dados_inserir = { "author": "Orlando",
+    "text": "Django e mongo juntos!",
+    "tags": ["mongodb", "python", "pymongo", "django"],
+    "date": datetime.datetime.now(tz=datetime.timezone.utc),
+   }
+   inserido = inserir_mongo(dados_inserir)
+   return HttpResponse(inserido)
