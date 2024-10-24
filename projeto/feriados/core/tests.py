@@ -50,3 +50,50 @@ class FeriadoModelTest(TestCase):
         feriado = FeriadoModel.objects.first()
         self.assertIsInstance(feriado.modificado_em, datetime)
         self.assertNotIsInstance(feriado.modificado_em, str)
+
+
+from core.forms import FeriadoForm
+
+class FeriadoFormTest(TestCase):
+    def test_form_has_fields(self):
+        form = FeriadoForm()
+        expected = ['nome', 'dia', 'mes']
+        self.assertSequenceEqual(expected, list(form.fields))
+
+    def test_must_be_capitalized(self):
+        dados = {'nome':'Tiradentes', 'dia':14,'mes':4}
+        form = FeriadoForm(dados)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['nome'], 'Tiradentes'.upper())
+    
+    def test_month_between_1_and_12__001(self):
+        dados = {'nome':'Tiradentes', 'dia':14,'mes':4}
+        form = FeriadoForm(dados)
+        self.assertTrue(form.is_valid())
+        self.assertEqual({}, form.errors)
+        self.assertEqual(form.cleaned_data['mes'], 4)
+        
+    def test_month_between_1_and_12__error(self):
+        dados = {'nome':'Tiradentes', 'dia':14,'mes':0}
+        form = FeriadoForm(dados)
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors.get('mes')[0], 'Mês inválido')
+    
+    def test_month_between_1_and_12__error2(self):
+        dados = {'nome':'Tiradentes', 'dia':14,'mes':13}
+        form = FeriadoForm(dados)
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors.get('mes')[0], 'Mês inválido')
+
+    def test_day_between_1_and_31__001(self):
+        dados = {'nome':'Tiradentes', 'dia':1,'mes':4}
+        form = FeriadoForm(dados)
+        self.assertTrue(form.is_valid())
+        self.assertEqual({}, form.errors)
+        self.assertEqual(form.cleaned_data['dia'], 1)
+
+    def test_day_between_1_and_31__001(self):
+        dados = {'nome':'Tiradentes', 'dia':0,'mes':4}
+        form = FeriadoForm(dados)
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors.get('dia')[0], 'Dia inválido')
